@@ -17,10 +17,13 @@
             <h2>{{ $diary->title }}</h2>
             <p>{{ $diary->body }}</p>
             <p>{{ $diary->created_at }}</p>
-            <form action="{{ route('diary.destroy',['id'=>$diary->id]) }}" method="POST">
-              @csrf
-              @method('delete')
-              <button class="btn btn-danger">削除</button>
+            <div class="row flex-wrap justify-content-center">
+              <a class="btn btn-success mr-2" href="{{ route('diary.edit', ['id'=>$diary->id])}}">編集</a>
+              <form action="{{ route('diary.destroy',['id'=>$diary->id]) }}" method="POST">
+                @csrf
+                @method('delete')
+                <button class="btn btn-danger ml-2">削除</button>
+            </div>
             </form>
           </div>
         </li>

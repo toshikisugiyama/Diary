@@ -64,9 +64,13 @@ class DiaryController extends Controller
      * @param  \App\Diary  $diary
      * @return \Illuminate\Http\Response
      */
-    public function edit(Diary $diary)
+    public function edit(int $id)
     {
-        //
+        // dd($id);
+        $diary = Diary::find($id);
+        return view('diaries.edit', [
+            'diary'=>$diary,
+        ]);
     }
 
     /**
@@ -76,9 +80,13 @@ class DiaryController extends Controller
      * @param  \App\Diary  $diary
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Diary $diary)
+    public function update(CreateDiary $request, int $id)
     {
-        //
+        $diary = Diary::find($id);
+        $diary->title = $request->title;
+        $diary->body = $request->body;
+        $diary->save();
+        return redirect()->route('diary.index');
     }
 
     /**
