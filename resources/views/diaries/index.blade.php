@@ -8,7 +8,7 @@
     <title>一覧表示画面</title>
 </head>
 <body>
-  <div class="container">
+  <div class="container py-4">
     <ul class="list-unstyled d-flex flex-wrap justify-content-start align-items-center">
       @foreach($diaries as $diary)
         <li class="w-25">
