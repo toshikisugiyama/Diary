@@ -8,7 +8,8 @@
     <title>一覧表示画面</title>
 </head>
 <body>
-  <div class="container">
+  <div class="container py-4">
+    <a href="{{ route('diary.create') }}" class="btn btn-primary btn-block">新規投稿</a>
     <ul class="list-unstyled d-flex flex-wrap justify-content-start align-items-center">
       @foreach($diaries as $diary)
         <li class="w-25">

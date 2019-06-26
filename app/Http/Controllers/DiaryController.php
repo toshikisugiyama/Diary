@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Diary;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateDiary;
 
 class DiaryController extends Controller
 {
@@ -26,7 +27,7 @@ class DiaryController extends Controller
      */
     public function create()
     {
-        //
+        return view('diaries.create');
     }
 
     /**
@@ -35,9 +36,15 @@ class DiaryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateDiary $request)
     {
-        //
+        $diary = new Diary();
+
+        $diary->title = $request->title;
+        $diary->body = $request->body;
+        $diary->save();
+
+        return redirect()->route('diary.index');
     }
 
     /**
