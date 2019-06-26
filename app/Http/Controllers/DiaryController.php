@@ -87,8 +87,10 @@ class DiaryController extends Controller
      * @param  \App\Diary  $diary
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Diary $diary)
+    public function destroy(int $id)
     {
-        //
+        $diary = Diary::find($id);
+        $diary->delete();
+        return redirect()->route('diary.index');
     }
 }
