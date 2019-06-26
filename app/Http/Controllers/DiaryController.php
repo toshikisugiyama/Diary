@@ -37,7 +37,13 @@ class DiaryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $diary = new Diary();
+
+        $diary->title = $request->title;
+        $diary->body = $request->body;
+        $diary->save();
+
+        return redirect()->route('diary.index');
     }
 
     /**

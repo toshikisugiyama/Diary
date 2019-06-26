@@ -9,7 +9,7 @@
 </head>
 <body>
   <div class="container py-4">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center align-items-center">
       <div class="col-8">
         <form action="{{ route('diary.create') }}" method="POST">
           @csrf
