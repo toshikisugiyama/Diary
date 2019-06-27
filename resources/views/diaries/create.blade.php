@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
-@section('title')
-新規投稿画面
-@endsection
+@section('title','新規投稿画面')
 
 @section('content')
 <div class="container">
