@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
-@section('title')
-編集画面
-@endsection
+@section('title','編集画面')
 
 @section('content')
 <div class="container">

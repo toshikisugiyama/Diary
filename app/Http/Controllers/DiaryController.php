@@ -66,10 +66,13 @@ class DiaryController extends Controller
      * @param  \App\Diary  $diary
      * @return \Illuminate\Http\Response
      */
-    public function edit(int $id)
+    public function edit(Diary $diary)
     {
+        if(Auth::user()->id !== $diary->user_id){
+            abort(403);
+        }
         // dd($id);
-        $diary = Diary::find($id);
+        // $diary = Diary::find($id);
         return view('diaries.edit', [
             'diary'=>$diary,
         ]);
@@ -82,9 +85,12 @@ class DiaryController extends Controller
      * @param  \App\Diary  $diary
      * @return \Illuminate\Http\Response
      */
-    public function update(CreateDiary $request, int $id)
+    public function update(CreateDiary $request, Diary $diary)
     {
-        $diary = Diary::find($id);
+        if(Auth::user()->id !== $diary->user_id){
+            abort(403);
+        }
+        // $diary = Diary::find($id);
         $diary->title = $request->title;
         $diary->body = $request->body;
         $diary->save();
@@ -97,9 +103,12 @@ class DiaryController extends Controller
      * @param  \App\Diary  $diary
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy(Diary $diary)
     {
-        $diary = Diary::find($id);
+        if(Auth::user()->id !== $diary->user_id){
+            abort(403);
+        }
+        // $diary = Diary::find($id);
         $diary->delete();
         return redirect()->route('diary.index');
     }
