@@ -16,7 +16,7 @@ class DiaryController extends Controller
      */
     public function index()
     {
-        $diaries = Diary::orderBy('id','desc')->get();
+        $diaries = Diary::with('likes')->orderBy('id','desc')->get();
         // dd($diaries);
         return view('diaries.index',['diaries' => $diaries]);
     }
@@ -47,17 +47,6 @@ class DiaryController extends Controller
         $diary->save();
 
         return redirect()->route('diary.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Diary  $diary
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Diary $diary)
-    {
-        //
     }
 
     /**
@@ -111,5 +100,17 @@ class DiaryController extends Controller
         // $diary = Diary::find($id);
         $diary->delete();
         return redirect()->route('diary.index');
+    }
+
+    public function like(int $id)
+    {
+        $diary = Diary::where('id', $id)->with('likes')->first();
+        $diary->likes()->attach(Auth::user()->id);
+    }
+
+    public function dislike(int $id)
+    {
+        $diary = Diary::where('id', $id)->with('likes')->first();
+        $diary->likes()->detach(Auth::user()->id);
     }
 }

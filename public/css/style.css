@@ -1,0 +1,6 @@
+@charset "utf-8";
+
+.js-like,
+.js-dislike {
+  cursor: pointer;
+}
