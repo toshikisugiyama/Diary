@@ -40,6 +40,12 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    private function saveProfileImage($image){
+        $imgPath = $image->store('images/profilePicture','public');
+        dd($imgPath);
+        return 'storage/' . $imgPath;
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -52,10 +58,12 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'picture' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ],[],[
             'name' => 'ユーザー名',
             'email' => 'メールアドレス',
             'password' => 'パスワード',
+            'picture' => 'プロフィール画像',
         ]);
     }
 
@@ -67,10 +75,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $imgPath = $this->saveProfileImage($data['picture']);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'picture_path' => $imgPath,
         ]);
     }
 }
