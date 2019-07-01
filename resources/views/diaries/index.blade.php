@@ -13,26 +13,26 @@
           <p>{{ $diary->body }}</p>
           <p>{{ $diary->created_at }}</p>
           @if(Auth::check() && Auth::user()->id === $diary->user_id)
-            <div class="row flex-wrap justify-content-center">
-              <a class="btn btn-success mr-2" href="{{ route('diary.edit', ['id'=>$diary])}}">編集</a>
-              <form action="{{ route('diary.destroy',['id'=>$diary]) }}" method="POST">
-                @csrf
-                @method('delete')
+            <form action="{{ route('diary.destroy',['id'=>$diary]) }}" method="POST">
+              @csrf
+              @method('delete')
+              <div class="row flex-wrap justify-content-center">
+                <a class="btn btn-success mr-2" href="{{ route('diary.edit', ['id'=>$diary])}}">編集</a>
                 <button class="btn btn-danger ml-2">削除</button>
-            </div>
-            <div class="mt-3 ml-3">
-              @if(Auth::check() && $diary->likes->contains(function($user){
-                return $user->id === Auth::user()->id;
-              }))
-                <i class="far fa-heart fa-lg text-danger js-dislike"></i>
-              @else
-                <i class="far fa-heart fa-lg text-danger js-like"></i>
-              @endif
-              <input class="diary-id" type="hidden" value="{{ $diary->id }}">
-              <span class="js-like-num">{{ $diary->likes->count() }}</span>
-            </div>
+              </div>
+              <div class="mt-3 ml-3">
+                @if(Auth::check() && $diary->likes->contains(function($user){
+                  return $user->id === Auth::user()->id;
+                }))
+                  <i class="far fa-heart fa-lg text-danger js-dislike"></i>
+                @else
+                  <i class="far fa-heart fa-lg text-danger js-like"></i>
+                @endif
+                <input class="diary-id" type="hidden" value="{{ $diary->id }}">
+                <span class="js-like-num">{{ $diary->likes->count() }}</span>
+              </div>
+            </form>
           @endif
-          </form>
         </div>
       </li>
     @endforeach

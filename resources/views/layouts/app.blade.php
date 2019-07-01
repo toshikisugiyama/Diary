@@ -70,6 +70,9 @@
                                     </form>
                                 </div>
                             </li>
+                            <li class="nav-item">
+                                <img class="rounded-circle" src="{{ asset(Auth::user()->picture_path) }}" alt="user's picture" height="40px">
+                            </li>
                         @endguest
                     </ul>
                 </div>
