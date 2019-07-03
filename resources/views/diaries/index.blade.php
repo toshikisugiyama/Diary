@@ -9,7 +9,14 @@
     @foreach($diaries as $diary)
       <li class="w-25">
         <div class="border border-primary rounded my-4 mx-2 px-3 py-2">
-          <h2>{{ $diary->title }}</h2>
+          <div class="row">
+            <div class="col-9">
+              <h2>{{ $diary->title }}</h2>
+            </div>
+            <div class="col-3">
+              <img height="40px" class="rounded-circle" src="{{ $diary->user->picture_path }}" alt="post_user">
+            </div>
+          </div>
           <p>{{ $diary->body }}</p>
           <p>{{ $diary->created_at }}</p>
           @if(Auth::check() && Auth::user()->id === $diary->user_id)
