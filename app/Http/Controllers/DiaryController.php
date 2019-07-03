@@ -16,8 +16,11 @@ class DiaryController extends Controller
      */
     public function index()
     {
-        $diaries = Diary::with('likes')->orderBy('id','desc')->get();
+        $diaries = Diary::with(['likes','user'])->orderBy('id','desc')->get();
         // dd($diaries);
+        // foreach ($diaries as $diary) {
+        //     dd($diary->likes);
+        // }
         return view('diaries.index',['diaries' => $diaries]);
     }
 
