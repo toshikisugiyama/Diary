@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Diary;
+use App\Mail\DiarySent;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateDiary;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class DiaryController extends Controller
 {
@@ -48,6 +50,7 @@ class DiaryController extends Controller
         $diary->body = $request->body;
         $diary->user_id = Auth::user()->id;
         $diary->save();
+        Mail::to($request->user())->send(new DiarySent($diary));
 
         return redirect()->route('diary.index');
     }
